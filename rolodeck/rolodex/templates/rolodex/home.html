@@ -1,0 +1,31 @@
+<!-- templates/rolodex/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Rolodex</title>
+</head>
+<body>
+    <h1>My Rolodex</h1>
+    <a href="{% url 'add_person' %}">Add Person</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Organization</th>
+                <th>Hobby</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in people %}
+            <tr>
+                <td>{{ person.name }}</td>
+                <td>{{ person.organization }}</td>
+                <td>{{ person.hobby }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
