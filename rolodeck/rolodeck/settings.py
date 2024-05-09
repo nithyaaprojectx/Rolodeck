@@ -25,7 +25,7 @@ SECRET_KEY = "Rolodeck"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','https://8000-cs-420a418e-b008-4742-93bd-892c68c16a4e.cs-asia-southeast1-bool.cloudshell.dev/']
 
 
 # Application definition
