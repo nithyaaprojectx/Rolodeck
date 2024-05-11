@@ -28,6 +28,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1','34.93.118.25','*']
 CSRF_TRUSTED_ORIGINS = ['https://8000-cs-420a418e-b008-4742-93bd-892c68c16a4e.cs-asia-southeast1-bool.cloudshell.dev']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
 
 # Application definition
 
@@ -44,7 +50,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'social_django',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework',
 ]
 # settings.py
 LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
