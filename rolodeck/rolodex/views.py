@@ -25,9 +25,9 @@ class UserLoginAPIView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = [SessionAuthentication, BasicAuthentication]
 
-    def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
+    def get(self, request):
+        username = request.query_params.get("username")
+        password = request.query_params.get("password")
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
