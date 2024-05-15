@@ -10,13 +10,14 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .serializers import UserSerializer
+from .serializers import UserSerializer, PersonSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from django.contrib.auth import authenticate, login
@@ -39,6 +40,25 @@ class UserLoginAPIView(APIView):
 
     def get_serializer_class(self):
         return UserSerializer
+
+
+class PeopleAPIView(generics.ListAPIView):
+    serializer_class = PersonSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Get the currently logged-in user
+        user = self.request.user
+
+        # Filter the queryset to retrieve people associated with the user
+        queryset = Person.objects.filter(user=user)
+
+        return queryset
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
