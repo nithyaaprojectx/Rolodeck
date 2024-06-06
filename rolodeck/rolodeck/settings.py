@@ -26,7 +26,8 @@ SECRET_KEY = "Rolodeck"
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','34.93.118.25','*']
-CSRF_TRUSTED_ORIGINS = ['https://8000-cs-420a418e-b008-4742-93bd-892c68c16a4e.cs-asia-southeast1-bool.cloudshell.dev']
+# CSRF_TRUSTED_ORIGINS = ['']
+CORS_ORIGIN_ALLOW_ALL = True  # For development purposes, allow all origins. Restrict in production.
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -76,10 +77,6 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    'https://8000-cs-420a418e-b008-4742-93bd-892c68c16a4e.cs-asia-southeast1-bool.cloudshell.dev',
-    # Add other origins if neede
-]
 ROOT_URLCONF = "rolodeck.urls"
 
 TEMPLATES = [
