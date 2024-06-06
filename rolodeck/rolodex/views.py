@@ -13,10 +13,25 @@ from .serializers import UserSerializer, PersonSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from .serializers import UserRegistrationSerializer
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+class UserRegistrationAPIView(generics.CreateAPIView):
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny]
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class UserLoginAPIView(APIView):
     permission_classes = [AllowAny]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get(self, request):
         username = request.query_params.get("username")
@@ -25,14 +40,9 @@ class UserLoginAPIView(APIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            serializer = UserSerializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-
-    def get_serializer_class(self):
-        return UserSerializer
-
 class PeopleAPIView(APIView):
     permission_classes = [AllowAny]  # Change to AllowAny to allow access without prior authentication
 
@@ -51,6 +61,7 @@ class PeopleAPIView(APIView):
 
 class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -83,3 +94,14 @@ def add_person(request):
     else:
         form = PersonForm()
     return render(request, 'rolodex/add_person.html', {'form': form})
+
+class UserRegistrationAPIView(generics.CreateAPIView):
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
