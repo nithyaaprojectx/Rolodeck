@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id', 'name', 'mail', 'date_of_birth', 'hobby']
+        fields = ['id', 'name', 'mail', 'date_of_birth', 'hobby','image']
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)

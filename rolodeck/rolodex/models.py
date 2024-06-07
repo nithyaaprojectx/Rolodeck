@@ -12,6 +12,7 @@ class Person(models.Model):
     mail = models.CharField(max_length=100,default="abc@gmail.com")
     interests = models.CharField(max_length=100, default="fill it")
     notes = models.CharField(max_length=100,default="fill it")
+    image = models.ImageField(upload_to='person_images/', default='default_person_image.jpg')
     # Add other details as needed
 
     def __str__(self):

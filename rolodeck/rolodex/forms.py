@@ -5,4 +5,4 @@ from .models import Person
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['name', 'organization', 'hobby','date_of_birth','mail','phone_number','interests','notes']  # Add other fields as needed
+        fields = ['name', 'organization', 'hobby','date_of_birth','mail','phone_number','interests','notes','image']  # Add other fields as needed

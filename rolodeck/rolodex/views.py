@@ -85,7 +85,7 @@ def custom_logout(request):
 
 def add_person(request):
     if request.method == 'POST':
-        form = PersonForm(request.POST)
+        form = PersonForm(request.POST, request.FILES)
         if form.is_valid():
             person = form.save(commit=False)
             person.user = request.user
