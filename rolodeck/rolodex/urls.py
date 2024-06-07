@@ -3,7 +3,10 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import RolodexHomeView, add_person, custom_logout
 from .views import UserLoginAPIView, UserCreateAPIView, PeopleAPIView, UserRegistrationAPIView
-
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path
+from . import views
 urlpatterns = [
     path('', RolodexHomeView.as_view(), name='rolodex_home'),
     path('add/', add_person, name='add_person'),
@@ -15,3 +18,5 @@ urlpatterns = [
     path('api/signup/', UserRegistrationAPIView.as_view(), name='user-signup'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
