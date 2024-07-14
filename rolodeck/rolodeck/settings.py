@@ -28,6 +28,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['https://rolodeck-app.azurewebsites.net/','20.244.84.143','127.0.0.1','34.93.118.25','*']
 # CSRF_TRUSTED_ORIGINS = ['']
 CORS_ORIGIN_ALLOW_ALL = True  # For development purposes, allow all origins. Restrict in production.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
