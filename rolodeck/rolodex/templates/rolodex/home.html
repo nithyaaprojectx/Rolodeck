@@ -26,9 +26,7 @@
         <tbody>
             {% for person in people %}
             <tr>
-                <td>
-                    <img src="{{ person.image.url }}" alt="Image of {{ person.name }}" width="100" height="100">
-                </td>
+                <td><img src="{{ person.image.url }}" alt="{{ person.name }}" width="100"></td>
                 <td>{{ person.name }}</td>
                 <td>{{ person.organization }}</td>
                 <td>{{ person.hobby }}</td>
